@@ -34,5 +34,9 @@ public class UserEntity {
     @Column(name = "fecha_registro")
     @Convert(converter = TimestampToLocalTime.class)
     private LocalDateTime FechaRegi;
+
+    public Integer getId() {
+        return IdUsuario;
+    }
 }
 
