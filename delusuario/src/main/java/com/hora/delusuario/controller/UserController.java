@@ -21,7 +21,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/usuarios")
+    @PostMapping("/create")
     public ResponseEntity<UserEntity> crearUsuario(@RequestBody UserEntity usuario) {
         usuario.setFechaRegi(LocalDateTime.now()); // Establecer la fecha y hora actual
         UserEntity nuevoUsuario = userService.crearUsuario(usuario);

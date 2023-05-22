@@ -19,6 +19,9 @@ public class UserService {
 
     @Transactional
     public UserEntity crearUsuario(UserEntity userEntity) {
+        if (userRepository.existsByCorreo(userEntity.getCorreo())) {
+            throw new IllegalArgumentException("El correo ya existe");
+        }
 
         if (userEntity.getContrasenha() != null) {
             String contrasenha = userEntity.getContrasenha();
