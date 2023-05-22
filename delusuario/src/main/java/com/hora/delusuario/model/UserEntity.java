@@ -25,7 +25,7 @@ public class UserEntity {
 
     @Column(name = "correo")
     @NotNull
-    private String Correo;
+    private String correo;
 
     @Column(name = "password")
     @NotNull
