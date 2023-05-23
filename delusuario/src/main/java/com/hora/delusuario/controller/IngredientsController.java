@@ -44,4 +44,9 @@ public class IngredientsController {
 
         return ResponseEntity.ok("Ingrediente editado exitosamente");
     }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminarIngrediente(@PathVariable int id_ingrediente) {
+        ingredientsService.eliminarIngredientePorId(id_ingrediente);
+        return ResponseEntity.ok("Ingrediente eliminado exitosamente");
+    }
 }

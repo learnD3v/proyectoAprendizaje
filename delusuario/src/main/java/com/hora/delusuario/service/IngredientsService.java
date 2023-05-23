@@ -27,11 +27,14 @@ public class IngredientsService {
         return ingredientsRepository.findAll();
     }
 
-    public ProductEntity obtenerIngredientePorId(int id) {
-        return ingredientsRepository.findById(id);
+    public ProductEntity obtenerIngredientePorId(int id_ingrediente) {
+        return ingredientsRepository.findById(id_ingrediente);
     }
 
     public void guardarIngrediente(ProductEntity ingrediente) {
         ingredientsRepository.save(ingrediente);
+    }
+    public void eliminarIngredientePorId(int id_ingrediente) {
+        ingredientsRepository.deleteById(id_ingrediente);
     }
 }
