@@ -5,31 +5,27 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-@Entity(name = "ingredientes")
+@Entity(name = "producto")
 @Getter
 @Setter
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ingredient_seq")
-    @SequenceGenerator(name = "ingredient_seq", sequenceName = "ingredientes_id_ingrediente_seq", allocationSize = 1)
-    private Integer id_ingrediente;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "producto_seq")
+    @SequenceGenerator(name = "producto_seq", sequenceName = "producto_id_producto_seq", allocationSize = 1)
+    private Integer id_producto;
 
-    @Column(name = "nombre_ingrediente")
+    @Column(name = "nombre_producto")
     @NotNull
-    private String nombre_ingrediente;
+    private String nombre_producto;
 
     @Column(name = "cantidad")
     @NotNull
     private Integer cantidad;
 
-    @Column(name = "precio_ingredientes")
+    @Column(name = "precio_producto")
     @NotNull
-    private Double precio_ingredientes;
-
-    @Column(name = "cantidad_aprox_por_kg")
-    @NotNull
-    private Integer cantidad_aprox_por_kg;
+    private Double precio_producto;
 
 }
 
