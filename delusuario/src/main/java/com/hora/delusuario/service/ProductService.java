@@ -37,7 +37,8 @@ public class ProductService {
     }
 
     public ProductEntity obtenerProductoPorId(int id_producto) {
-        return productRepository.findById(id_producto);
+        Optional<ProductEntity> optionalProducto = productRepository.findById(id_producto);
+        return optionalProducto.orElse(null);
     }
 
 
