@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Login</h1>
+<form id="loginForm">
+    <label for="correo">Correo:</label>
+    <input type="email" id="correo" name="correo" required><br><br>
+    <label for="contrasenha">Contraseña:</label>
+    <input type="password" id="contrasenha" name="contrasenha" required><br><br>
+    <input type="submit" value="Iniciar sesión">
+</form>
+
+<script>
+    $(document).ready(function() {
+        $('#loginForm').submit(function(event) {
+            event.preventDefault(); // Evitar el envío del formulario por defecto
+
+            var correo = $('#correo').val();
+            var contrasenha = $('#contrasenha').val();
+
+            var loginData = {
+                correo: correo,
+                contrasenha: contrasenha
+            };
+
+            $.ajax({
+                url: '/api/login',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(loginData),
+                success: function(response) {
+                    // La autenticación fue exitosa
+                    var token = response.token;
+                    // Realiza las acciones necesarias con el token (por ejemplo, almacenarlo en el local storage)
+                    console.log('Token:', token);
+                    // Redireccionar a otra página o mostrar un mensaje de éxito
+                },
+                error: function(xhr, status, error) {
+                    // La autenticación falló
+                    var errorMessage = xhr.responseText;
+                    console.error('Error:', errorMessage);
+                    // Mostrar un mensaje de error en la página
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
