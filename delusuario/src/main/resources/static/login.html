@@ -28,7 +28,7 @@
         <a href="file:///C:/Users/semed/Desktop/delusuario/delusuario/src/main/resources/static/Inicio/index.html">
             <h5>¿Has olvidado tu contraseña?</h5>
         </a>
-        <a href="file:///C:/Users/semed/Desktop/delusuario/delusuario/src/main/resources/static/Register/register.html">
+        <a href="http://localhost:8080/register.html">
             <h6>¿Aún no tienes una cuenta?</h6>
         </a>
     </form>
@@ -58,7 +58,7 @@
                         // Almacenar el token en el almacenamiento local (localStorage)
                         localStorage.setItem('token', token);
                         // Redirigir a otra página después de iniciar sesión
-                        window.location.href = 'https://www.google.com/';
+                        window.location.href = 'http://localhost:8080/index.html';
                     }
                 },
                 error: function(xhr, textStatus, errorThrown) {

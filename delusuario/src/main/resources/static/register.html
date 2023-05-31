@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="register.css">
+    <title>Jardín Sublime</title>
+    <link rel="icon" type="image/x-icon" href="../imgs/Icon-modified.png">
+</head>
+
+<body>
+
+<div class="encabezado">
+    <img src="../imgs/Icon-modified.png" alt="Descripción de la imagen">
+    <h1>Jardín Sublime</h1>
+</div>
+
+<div class="login-container">
+    <form id="register-form" action="/api/create" method="post">
+        <h2>Create una cuenta</h2>
+        <input type="text" name="nombre" placeholder="Nombre completo" required>
+        <input type="email" name="correo" placeholder="Email" required>
+        <input type="password" name="contrasenha" placeholder="Contraseña" required>
+        <!-- Agrega más campos de formulario según tus necesidades -->
+        <button type="submit">Registrar</button>
+        <a href="http://localhost:8080/login.html#"><h5>Volver</h5></a>
+    </form>
+</div>
+
+<script>
+    document.getElementById('register-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var nombre = document.getElementsByName('nombre')[0].value;
+        var correo = document.getElementsByName('correo')[0].value;
+        var contrasenha = document.getElementsByName('contrasenha')[0].value;
+
+        var usuario = {
+            nombre: nombre,
+            correo: correo,
+            contrasenha: contrasenha
+        };
+
+        fetch('/api/create', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(usuario)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Usuario creado:', data);
+                window.location.href = 'http://localhost:8080/index.html';
+            })
+            .catch(error => {
+                console.error('Error al crear el usuario:', error);
+                // Aquí puedes manejar el error de registro del usuario
+            });
+    });
+</script>
+
+</body>
+
+</html>

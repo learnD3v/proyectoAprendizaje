@@ -1,9 +1,10 @@
 body {
-    background-image: url('https://img.freepik.com/vector-gratis/fondo-diseno-floral-lineal_23-2149130875.jpg?w=1380&t=st=1685554067~exp=1685554667~hmac=7f2958dfb3f208d23299d65452db09113a54874965bb90694f07e14bfe1c2389');
+    background-color: darkgray;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
+
 
 .encabezado{
     height: 50px;
@@ -21,24 +22,20 @@ body {
     align-items: center;
     height: 698px;
 }
-
 form {
     background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 5px;
 }
-
 h2 {
     text-align: center;
 }
-
 input {
-    width: 94.5%;
+    width: 96%;
     padding: 10px;
     margin-bottom: 10px;
 }
-
-.ingresar {
+button {
     width: 100%;
     padding: 10px;
     background-color: #27B105;
@@ -48,14 +45,8 @@ input {
     cursor: pointer;
 }
 
-h5 {
+h5{
     text-align: center;
     margin-top: 20px;
-    color: black;
-}
-
-h6 {
-    text-align: center;
-    margin-top: 5px;
     color: black;
 }
