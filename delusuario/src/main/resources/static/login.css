@@ -1,0 +1,61 @@
+body {
+    background-image: url('../static/imgs/parasignin.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.encabezado{
+    height: 50px;
+    max-width: 860px;
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin: 0 auto;
+}
+
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 698px;
+}
+
+form {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+h2 {
+    text-align: center;
+}
+
+input {
+    width: 94.5%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.ingresar {
+    width: 100%;
+    padding: 10px;
+    background-color: #27B105;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+h5 {
+    text-align: center;
+    margin-top: 20px;
+    color: black;
+}
+
+h6 {
+    text-align: center;
+    margin-top: 5px;
+    color: black;
+}

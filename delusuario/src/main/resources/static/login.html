@@ -1,49 +1,69 @@
 <!DOCTYPE html>
-<html>
-<head>
-    <title>Login</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-<h1>Login</h1>
-<form id="loginForm">
-    <label for="correo">Correo:</label>
-    <input type="email" id="correo" name="correo" required><br><br>
-    <label for="contrasenha">Contraseña:</label>
-    <input type="password" id="contrasenha" name="contrasenha" required><br><br>
-    <input type="submit" value="Iniciar sesión">
-</form>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="../../../../../static/Login/login.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jardín Sublime</title>
+    <link rel="stylesheet" href="login.css">
+    <link rel="icon" type="image/x-icon" href="../imgs/Icon-modified.png">
+</head>
+
+<body>
+<div class="encabezado">
+    <img class="logoEnca" src="../imgs/Icon-modified.png" alt="Descripción de la imagen">
+    <script src="../../../../../static/Login/login.js"></script>
+    <h1 class="textLogo">Jardín Sublime</h1>
+</div>
+
+<div class="login-container">
+    <form id="login-form" th:action="@{/api/login}" method="post">
+        <h2>Iniciar sesión</h2>
+        <input type="email" name="correo" placeholder="Email" required>
+        <input type="password" name="contrasenha" placeholder="Contraseña" required>
+        <button class="ingresar" type="submit">Ingresar</button>
+        <a href="file:///C:/Users/semed/Desktop/delusuario/delusuario/src/main/resources/static/Inicio/index.html">
+            <h5>¿Has olvidado tu contraseña?</h5>
+        </a>
+        <a href="file:///C:/Users/semed/Desktop/delusuario/delusuario/src/main/resources/static/Register/register.html">
+            <h6>¿Aún no tienes una cuenta?</h6>
+        </a>
+    </form>
+</div>
 <script>
     $(document).ready(function() {
-        $('#loginForm').submit(function(event) {
-            event.preventDefault(); // Evitar el envío del formulario por defecto
+        $('#login-form').submit(function(event) {
+            event.preventDefault();
 
-            var correo = $('#correo').val();
-            var contrasenha = $('#contrasenha').val();
+            var email = $('input[name="correo"]').val();
+            var password = $('input[name="contrasenha"]').val();
 
-            var loginData = {
-                correo: correo,
-                contrasenha: contrasenha
+            var loginRequest = {
+                correo: email,
+                contrasenha: password
             };
 
             $.ajax({
-                url: '/api/login',
                 type: 'POST',
+                url: '/api/login',
                 contentType: 'application/json',
-                data: JSON.stringify(loginData),
+                data: JSON.stringify(loginRequest),
                 success: function(response) {
-                    // La autenticación fue exitosa
+                    // Manejar la respuesta exitosa
                     var token = response.token;
-                    // Realiza las acciones necesarias con el token (por ejemplo, almacenarlo en el local storage)
-                    console.log('Token:', token);
-                    // Redireccionar a otra página o mostrar un mensaje de éxito
+                    if (token) {
+                        // Almacenar el token en el almacenamiento local (localStorage)
+                        localStorage.setItem('token', token);
+                        // Redirigir a otra página después de iniciar sesión
+                        window.location.href = 'https://www.google.com/';
+                    }
                 },
-                error: function(xhr, status, error) {
-                    // La autenticación falló
-                    var errorMessage = xhr.responseText;
-                    console.error('Error:', errorMessage);
-                    // Mostrar un mensaje de error en la página
+                error: function(xhr, textStatus, errorThrown) {
+                    // Manejar el error
+                    console.log(xhr.responseText);
                 }
             });
         });
