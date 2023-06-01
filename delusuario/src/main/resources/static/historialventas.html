@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <link rel="stylesheet" href="historialventas.css">
+  <link rel="stylesheet" href="Historialventas.css">
   <link rel="icon" type="image/x-icon" href="imgs/Icon-modified.png">
   <title>Jardín Sublime</title>
 </head>
@@ -13,7 +13,7 @@
       <hr>
       <li><a href="#">Inicio</a></li>
       <hr>
-      <li><a href="#">Productos</a></li>
+      <li><a href="http://localhost:8080/todos.html#">Productos</a></li>
       <hr>
       <li><a href="#">Inventario</a></li>
       <hr>
@@ -21,54 +21,50 @@
       <hr>
       <li><a href="#">Clientes</a></li>
       <hr>
-      <li><a href="file:///C:/Users/semed/Desktop/delusuario/delusuario/src/main/resources/static/Login/login.html">Configuración</a></li>
+      <li class=><a href="file:///C:/Users/semed/Desktop/delusuario/delusuario/src/main/resources/static/Login/login.html">Configuración</a></li>
       <hr>
-      <li><a href="http://localhost:8080/login.html">Cerrar sesión</a></li>
+      <li class=><a href="http://localhost:8080/login.html">Cerrar sesión</a></li>
       <hr>
     </ul>
   </div>
   <div class="content">
-    <table>
+    <h1 class="titulo">Tabla de ventas</h1>
+    <table id="ventas-table">
       <thead>
       <tr>
         <th>ID</th>
-        <th>Nombre</th>
+        <th>Producto vendido</th>
         <th>Cantidad vendida</th>
-        <th>Fecha de la venta</th>
+        <th>Fecha de venta</th>
       </tr>
       </thead>
-      <tbody id="productosTable">
-
+      <tbody>
+      <!-- Datos de ventas se agregarán aquí dinámicamente -->
       </tbody>
     </table>
   </div>
 </div>
+
 <script>
-  fetch('/historial/venta')
+  // Realizar una solicitud a la API para obtener los datos de ventas
+  fetch('historial/venta')
           .then(response => response.json())
           .then(data => {
-            const table = document.querySelector('table');
+            const ventasTable = document.getElementById('ventas-table');
+
+            // Iterar sobre los datos de ventas y agregar filas a la tabla
             data.forEach(venta => {
-              fetch(`/producto/${venta.id_venta}`)
-                      .then(response => response.json())
-                      .then(producto => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-              <td>${venta.id_venta}</td>
-              <td>${producto.nombre}</td>
-              <td>${venta.cantidad_venta}</td>
-              <td>${venta.fecha_venta}</td>
-            `;
-                        table.appendChild(row);
-                      })
-                      .catch(error => {
-                        console.log('Error al obtener el nombre del producto:', error);
-                      });
+              const row = document.createElement('tr');
+              row.innerHTML = `
+          <td>${venta.id_venta}</td>
+          <td>${venta.nombre_producto}</td>
+          <td>${venta.cantidad_venta}</td>
+          <td>${venta.fecha_venta}</td>
+        `;
+              ventasTable.querySelector('tbody').appendChild(row);
             });
           })
-          .catch(error => {
-            console.log('Error al obtener la lista de ventas:', error);
-          });
+          .catch(error => console.log(error));
 </script>
 </body>
 </html>
