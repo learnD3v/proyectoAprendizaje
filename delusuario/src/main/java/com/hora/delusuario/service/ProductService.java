@@ -17,13 +17,11 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepository;
     private final HistorialVentaRepository historialVentaRepository;
-
     @Autowired
     public ProductService(ProductRepository productRepository, HistorialVentaRepository historialVentaRepository) {
         this.productRepository = productRepository;
         this.historialVentaRepository = historialVentaRepository;
     }
-
     public void cargarProducto(String nombre_producto, int cantidad, double precio_producto) {
         ProductEntity producto = new ProductEntity();
         producto.setNombre_producto(nombre_producto);
@@ -31,48 +29,40 @@ public class ProductService {
         producto.setPrecio_producto(precio_producto);
         productRepository.save(producto);
     }
-
     public List<ProductEntity> obtenerTodosLosProductos() {
         return productRepository.findAll();
     }
-
     public ProductEntity obtenerProductoPorId(int id_producto) {
-        Optional<ProductEntity> optionalProducto = productRepository.findById(id_producto);
-        return optionalProducto.orElse(null);
+        return productRepository.findById(id_producto)
+                .orElse(null);
     }
 
-
-
     public void guardarProducto(ProductEntity producto) {
-        productRepository.save(producto);
+        productRepository.save(producto); // Esto debería actualizar el producto existente en la base de datos
     }
 
     public void eliminarProductoPorId(int id_producto) {
-        productRepository.deleteById(id_producto);
+        if (productRepository.existsById(id_producto)) {
+            productRepository.deleteById(id_producto);
+        } else {
+            throw new NoSuchElementException("Producto no encontrado");
+        }
     }
     public void venderProductos(List<VentaItem> ventaItems) {
         for (VentaItem ventaItem : ventaItems) {
             Integer idProducto = ventaItem.getId_producto().getId_producto(); // Obtener el ID del producto
             int cantidadVenta = ventaItem.getCantidad_venta();
-
-            ProductEntity producto = productRepository.findById(idProducto).orElse(null);
-
-            if (producto == null) {
-                throw new NoSuchElementException("Producto no encontrado");
-            }
-
+            ProductEntity producto = productRepository.findById(idProducto)
+                    .orElseThrow(() -> new NoSuchElementException("Producto no encontrado"));
             int cantidadDisponible = producto.getCantidad();
             if (cantidadVenta <= 0) {
                 throw new IllegalArgumentException("La cantidad de venta debe ser mayor que cero");
             }
-
             if (cantidadDisponible < cantidadVenta) {
                 throw new IllegalArgumentException("No hay suficiente cantidad disponible para vender");
             }
-
             producto.setCantidad(cantidadDisponible - cantidadVenta);
             productRepository.save(producto);
-
             HistorialVentaEntity historialVenta = new HistorialVentaEntity();
             historialVenta.setId_producto(producto);
             historialVenta.setCantidad_venta(cantidadVenta);
@@ -80,4 +70,29 @@ public class ProductService {
             historialVentaRepository.save(historialVenta);
         }
     }
+    public ProductEntity modificarCantidadProducto(Integer idProducto, Integer cantidad) {
+        Optional<ProductEntity> optionalProduct = productRepository.findById(idProducto);
+        if (optionalProduct.isEmpty()) {
+            throw new IllegalArgumentException("Producto no encontrado");
+        }
+
+        ProductEntity product = optionalProduct.get();
+        Integer nuevaCantidad = product.getCantidad() + cantidad;
+        product.setCantidad(nuevaCantidad);
+
+        return productRepository.save(product);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

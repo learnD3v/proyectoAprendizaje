@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
         import org.springframework.web.bind.annotation.RequestMapping;
         import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/productos")
@@ -38,21 +40,24 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<?> editarProducto(@PathVariable int id, @RequestBody ProductEntity producto) {
         ProductEntity productoExistente = productService.obtenerProductoPorId(id);
-        if (productoExistente == null) {
-            // Manejar el caso en que el producto no exista
+        if (productoExistente != null) {
+            Integer cantidadExistente = productoExistente.getCantidad();
+            int cantidadExistenteInt = cantidadExistente != null ? cantidadExistente.intValue() : 0;
+            int cantidadAdicional = producto.getCantidad();
+            int nuevaCantidad = cantidadExistenteInt + cantidadAdicional;
+            productoExistente.setCantidad(nuevaCantidad);
+            productoExistente.setNombre_producto(producto.getNombre_producto());
+            productoExistente.setPrecio_producto(producto.getPrecio_producto());
+            productService.guardarProducto(productoExistente);
+            return ResponseEntity.ok("Producto editado exitosamente");
+        } else {
             return ResponseEntity.notFound().build();
         }
-
-        // Actualizar los valores del producto existente
-        productoExistente.setNombre_producto(producto.getNombre_producto());
-        productoExistente.setCantidad(producto.getCantidad());
-        productoExistente.setPrecio_producto(producto.getPrecio_producto());
-
-        // Guardar los cambios en el servicio de productos
-        productService.guardarProducto(productoExistente);
-
-        return ResponseEntity.ok("Producto editado exitosamente");
     }
+
+
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> eliminarProducto(@PathVariable int id) {
@@ -70,5 +75,22 @@ public class ProductController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+    @PutMapping("/cantidad")
+    public ResponseEntity<String> modificarCantidadProducto(@RequestBody Map<String, Integer> requestBody) {
+        Integer id_producto = requestBody.get("id_producto");
+        Integer cantidad = requestBody.get("cantidad");
+        if (id_producto != null && cantidad != null) {
+            try {
+                ProductEntity updatedProduct = productService.modificarCantidadProducto(id_producto, cantidad);
+                return ResponseEntity.ok("Cantidad modificada correctamente. Nueva cantidad: " + updatedProduct.getCantidad());
+            } catch (IllegalArgumentException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        } else {
+            return ResponseEntity.badRequest().body("El cuerpo de la solicitud debe contener los parámetros 'id_producto' y 'cantidad'.");
+        }
+    }
+
 }
+
 
