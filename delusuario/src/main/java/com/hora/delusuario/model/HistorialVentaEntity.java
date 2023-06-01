@@ -1,5 +1,7 @@
 package com.hora.delusuario.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hora.delusuario.model.convertidoresfecha.TimestampToLocalTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -18,7 +20,8 @@ public class HistorialVentaEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_producto")
-    private ProductEntity id_producto;
+    @JsonIgnore
+    private ProductEntity producto;
 
     @Column(name = "cantidad_venta")
     private int cantidad_venta;
@@ -28,4 +31,9 @@ public class HistorialVentaEntity {
     private LocalDateTime fecha_venta;
 
     // Constructor, getters y setters, etc.
+
+    @JsonProperty("nombre_producto")
+    public String getNombreProducto() {
+        return producto != null ? producto.getNombre_producto() : null;
+    }
 }

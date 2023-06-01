@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
-import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/productos")
@@ -60,8 +60,8 @@ public class ProductController {
 
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> eliminarProducto(@PathVariable int id) {
-        productService.eliminarProductoPorId(id);
+    public ResponseEntity<?> eliminarProducto(@PathVariable int id_producto) {
+        productService.eliminarProductoPorId(id_producto);
         return ResponseEntity.ok("Producto eliminado exitosamente");
     }
     @PostMapping("/vender")
@@ -90,7 +90,16 @@ public class ProductController {
             return ResponseEntity.badRequest().body("El cuerpo de la solicitud debe contener los parámetros 'id_producto' y 'cantidad'.");
         }
     }
-
+    @GetMapping("/producto/{id}")
+    public ResponseEntity<ProductoDTO> obtenerProductoPorId(@PathVariable int id) {
+        ProductEntity product = productService.obtenerProductoPorId(id);
+        if (product != null) {
+            ProductoDTO productoDTO = new ProductoDTO(product.getId_producto(), product.getNombre_producto());
+            return ResponseEntity.ok(productoDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
 
 
