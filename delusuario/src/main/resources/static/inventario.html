@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Lista de Productos</title>
+  <link rel="stylesheet" type="text/css" href="inventario.css">
+</head>
+<body>
+<h1>Lista de Productos</h1>
+<table id="productosTable">
+  <tr>
+    <th>Producto</th>
+    <th>Cantidad Disponible</th>
+    <th>Cantidad Adicional</th>
+    <th>Precio</th>
+    <th>Acciones</th>
+  </tr>
+</table>
+<form id="agregarForm">
+  <input type="text" id="nombreProducto" placeholder="Nombre del producto">
+  <input type="number" min="0" id="cantidadProducto" placeholder="Cantidad Adicional">
+  <input type="number" min="0.00" step="0.01" id="precioProducto" placeholder="Precio">
+  <button type="submit" class="add-btn">Agregar</button>
+</form>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    cargarProductos();
+    const agregarForm = document.getElementById('agregarForm');
+    agregarForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      agregarProducto();
+    });
+    const tableBody = document.getElementById('productosTable');
+    tableBody.addEventListener('click', function(event) {
+      if (event.target.classList.contains('modify-btn')) {
+        modificarProducto(event);
+      } else if (event.target.classList.contains('delete-btn')) {
+        const productoId = event.target.getAttribute('data-id');
+        eliminarProducto(productoId);
+      }
+    });
+  });
+  function cargarProductos() {
+    fetch('http://localhost:8080/productos/todos')
+            .then(response => response.json())
+            .then(data => mostrarProductos(data))
+            .catch(error => console.error('Error al cargar los productos:', error));
+  }
+  function mostrarProductos(productos) {
+    const tableBody = document.getElementById('productosTable');
+    tableBody.innerHTML = '';
+    productos.forEach(producto => {
+      const row = document.createElement('tr');
+      const nombreCell = document.createElement('td');
+      nombreCell.textContent = producto.nombre_producto;
+      row.appendChild(nombreCell);
+      const cantidadDisponibleCell = document.createElement('td');
+      cantidadDisponibleCell.textContent = producto.cantidad;
+      cantidadDisponibleCell.classList.add('cantidad-input'); // Agregado de la clase '.cantidad-input'
+      row.appendChild(cantidadDisponibleCell);
+      const cantidadAdicionalCell = document.createElement('td');
+      const cantidadAdicionalInput = document.createElement('input');
+      cantidadAdicionalInput.type = 'number';
+      cantidadAdicionalInput.min = 0;
+      cantidadAdicionalInput.className = 'cantidad-adicional-input';
+      cantidadAdicionalCell.appendChild(cantidadAdicionalInput);
+      row.appendChild(cantidadAdicionalCell);
+      const precioCell = document.createElement('td');
+      precioCell.textContent = '$' + producto.precio_producto.toFixed(2);
+      row.appendChild(precioCell);
+      const accionesCell = document.createElement('td');
+      const modificarBtn = document.createElement('button');
+      modificarBtn.textContent = 'Modificar';
+      modificarBtn.className = 'modify-btn';
+      modificarBtn.setAttribute('data-id', producto.id_producto);
+      accionesCell.appendChild(modificarBtn);
+      const eliminarBtn = document.createElement('button');
+      eliminarBtn.textContent = 'Eliminar';
+      eliminarBtn.className = 'delete-btn';
+      eliminarBtn.setAttribute('data-id', producto.id_producto);
+      accionesCell.appendChild(eliminarBtn);
+      row.appendChild(accionesCell);
+      tableBody.appendChild(row);
+    });
+  }
+  function agregarProducto() {
+    const nombreProducto = document.getElementById('nombreProducto').value;
+    const cantidadAdicional = parseInt(document.getElementById('cantidadProducto').value);
+    const precioProducto = parseFloat(document.getElementById('precioProducto').value);
+    const nuevoProducto = {
+      nombre_producto: nombreProducto,
+      cantidad: cantidadAdicional,
+      precio_producto: precioProducto
+    };
+    fetch('http://localhost:8080/productos/cargar', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(nuevoProducto)
+    })
+            .then(response => {
+              if (response.ok) {
+                cargarProductos();
+                limpiarFormulario();
+              } else {
+                console.error('Error al agregar el producto:', response.status);
+              }
+            })
+            .catch(error => console.error('Error al agregar el producto:', error));
+  }
+  function modificarProducto(event) {
+    const productoId = event.target.parentNode.parentNode.querySelector('.modify-btn').getAttribute('data-id');
+    const cantidadAdicional = parseInt(event.target.parentNode.parentNode.querySelector('.cantidad-adicional-input').value);
+
+    const requestBody = {
+      id_producto: parseInt(productoId),
+      cantidad: cantidadAdicional
+    };
+
+    fetch(`http://localhost:8080/productos/cantidad`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(requestBody)
+    })
+            .then(response => {
+              if (response.ok) {
+                cargarProductos();
+              } else {
+                console.error('Error al modificar el producto:', response.status);
+              }
+            })
+            .catch(error => console.error('Error al modificar el producto:', error));
+  }
+
+  function eliminarProducto(productoId) {
+    fetch(`http://localhost:8080/productos/${productoId}`, {
+      method: 'DELETE'
+    })
+            .then(response => {
+              if (response.ok) {
+                cargarProductos();
+              } else {
+                console.error('Error al eliminar el producto:', response.status);
+              }
+            })
+            .catch(error => console.error('Error al eliminar el producto:', error));
+  }
+  function limpiarFormulario() {
+    document.getElementById('nombreProducto').value = '';
+    document.getElementById('cantidadProducto').value = '';
+    document.getElementById('precioProducto').value = '';
+  }
+</script>
+</body>
+</html>

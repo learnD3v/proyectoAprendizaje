@@ -1,0 +1,32 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+h1 {
+    text-align: center;
+}
+input[type="number"] {
+    width: 60px;
+}
+input[type="text"] {
+    width: 150px;
+}
+.modify-btn, .delete-btn, .add-btn {
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.modify-btn:hover, .delete-btn:hover, .add-btn:hover {
+    background-color: #45A049;
+}
+.modify-btn:disabled, .delete-btn:disabled, .add-btn:disabled {
+    background-color: #CCCCCC;
+    cursor: not-allowed;
+}
