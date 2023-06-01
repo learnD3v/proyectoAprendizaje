@@ -37,6 +37,7 @@ public class ProductService {
                 .orElse(null);
     }
 
+
     public void guardarProducto(ProductEntity producto) {
         productRepository.save(producto); // Esto debería actualizar el producto existente en la base de datos
     }
@@ -63,8 +64,9 @@ public class ProductService {
             }
             producto.setCantidad(cantidadDisponible - cantidadVenta);
             productRepository.save(producto);
+
             HistorialVentaEntity historialVenta = new HistorialVentaEntity();
-            historialVenta.setId_producto(producto);
+            historialVenta.setProducto(producto);
             historialVenta.setCantidad_venta(cantidadVenta);
             historialVenta.setFecha_venta(LocalDateTime.now());
             historialVentaRepository.save(historialVenta);

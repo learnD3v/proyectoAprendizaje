@@ -27,5 +27,8 @@ public class ProductEntity {
     @NotNull
     private Double precio_producto;
 
+    public Integer getId() {
+        return id_producto;
+    }
 }
 
