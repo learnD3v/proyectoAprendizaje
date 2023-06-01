@@ -20,6 +20,7 @@
   <input type="number" min="0" id="cantidadProducto" placeholder="Cantidad Adicional">
   <input type="number" min="0.00" step="0.01" id="precioProducto" placeholder="Precio">
   <button type="submit" class="add-btn">Agregar</button>
+
 </form>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
@@ -46,8 +47,11 @@
             .catch(error => console.error('Error al cargar los productos:', error));
   }
   function mostrarProductos(productos) {
+    productos.sort((a, b) => a.id_producto - b.id_producto); // Ordenar los productos por ID
+
     const tableBody = document.getElementById('productosTable');
     tableBody.innerHTML = '';
+
     productos.forEach(producto => {
       const row = document.createElement('tr');
       const nombreCell = document.createElement('td');
