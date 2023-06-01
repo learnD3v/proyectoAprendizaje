@@ -1,27 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Lista de Productos</title>
-  <link rel="stylesheet" type="text/css" href="inventario.css">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="inventario.css">
+  <link rel="icon" type="image/x-icon" href="imgs/Icon-modified.png">
+  <title>Jardín Sublime</title>
 </head>
 <body>
-<h1>Lista de Productos</h1>
-<table id="productosTable">
-  <tr>
-    <th>Producto</th>
-    <th>Cantidad Disponible</th>
-    <th>Cantidad Adicional</th>
-    <th>Precio</th>
-    <th>Acciones</th>
-  </tr>
-</table>
-<form id="agregarForm">
-  <input type="text" id="nombreProducto" placeholder="Nombre del producto">
-  <input type="number" min="0" id="cantidadProducto" placeholder="Cantidad Adicional">
-  <input type="number" min="0.00" step="0.01" id="precioProducto" placeholder="Precio">
-  <button type="submit" class="add-btn">Agregar</button>
+<div class="container">
+  <div class="sidebar">
+    <ul>
+      <hr>
+      <li><a href="#">Inicio</a></li>
+      <hr>
+      <li><a href="http://localhost:8080/todos.html#">Productos</a></li>
+      <hr>
+      <li><a href="#">Inventario</a></li>
+      <hr>
+      <li><a href="#">Ventas</a></li>
+      <hr>
+      <li><a href="#">Clientes</a></li>
+      <hr>
+      <li><a href="file:///C:/Users/semed/Desktop/delusuario/delusuario/src/main/resources/static/Login/login.html">Configuración</a></li>
+      <hr>
+      <li><a href="http://localhost:8080/login.html">Cerrar sesión</a></li>
+      <hr>
+    </ul>
+  </div>
+  <div class="content">
 
-</form>
+    <table>
+      <thead>
+      <tr>
+        <th>Producto</th>
+        <th>Cantidad Disponible</th>
+        <th>Cantidad</th>
+        <th>Precio</th>
+        <th>Acciones</th>
+      </tr>
+      </thead>
+      <tbody id="productosTable">
+      </tbody>
+    </table>
+
+
+    <form id="agregarForm">
+      <input type="text" id="nombreProducto" placeholder="Nombre del producto">
+      <input type="number" min="0" id="cantidadProducto" placeholder="Cantidad">
+      <input type="number" min="0.00" step="0.01" id="precioProducto" placeholder="Precio">
+      <button type="submit" class="add-btn">Agregar</button>
+    </form>
+  </div>
+</div>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
     cargarProductos();
@@ -48,10 +78,8 @@
   }
   function mostrarProductos(productos) {
     productos.sort((a, b) => a.id_producto - b.id_producto); // Ordenar los productos por ID
-
     const tableBody = document.getElementById('productosTable');
     tableBody.innerHTML = '';
-
     productos.forEach(producto => {
       const row = document.createElement('tr');
       const nombreCell = document.createElement('td');
@@ -115,12 +143,10 @@
   function modificarProducto(event) {
     const productoId = event.target.parentNode.parentNode.querySelector('.modify-btn').getAttribute('data-id');
     const cantidadAdicional = parseInt(event.target.parentNode.parentNode.querySelector('.cantidad-adicional-input').value);
-
     const requestBody = {
       id_producto: parseInt(productoId),
       cantidad: cantidadAdicional
     };
-
     fetch(`http://localhost:8080/productos/cantidad`, {
       method: 'PUT',
       headers: {
@@ -137,7 +163,6 @@
             })
             .catch(error => console.error('Error al modificar el producto:', error));
   }
-
   function eliminarProducto(productoId) {
     fetch(`http://localhost:8080/productos/${productoId}`, {
       method: 'DELETE'
