@@ -1,6 +1,48 @@
 body {
+    background-image: url("https://static.vecteezy.com/system/resources/previews/007/444/751/non_2x/abstract-seamless-floral-wavy-pattern-background-texture-high-quality-photo-free-vector.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     font-family: Arial, sans-serif;
 }
+
+.sidebar {
+    position: fixed;
+    width: 105px;
+    background-color: rgba(255, 255, 255, 0.8);
+    height: 100vh;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.sidebar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.sidebar li {
+    padding: 5px;
+}
+.sidebar a {
+    text-decoration: none;
+    color: #000;
+    display: block;
+    padding: 5px;
+    text-align: center;
+}
+.sidebar a:hover {
+    background-color: rgba(0, 100, 0, 0.781);
+    border-radius: 5px;
+}
+.sidebar .bottom-links {
+    margin-top: auto;
+    margin-bottom: 20px;
+}
+
+/*---------------------------------------------------------------------------------------*/
 
 .container {
     margin-top: 100px; /* Ajusta el margen superior a 200px o el valor deseado */
@@ -33,8 +75,12 @@ h1 {
 }
 
 table {
-    width: 100%;
+    margin-top: 10px;
+    width: 80%;
+    margin-left: 120px;
+    text-align: center;
     border-collapse: collapse;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 th, td {
