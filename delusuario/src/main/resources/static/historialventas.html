@@ -11,19 +11,19 @@
   <div class="sidebar">
     <ul>
       <hr>
-      <li><a href="#">Inicio</a></li>
+      <li><a href="http://localhost:8080/index.html">Inicio</a></li>
       <hr>
-      <li><a href="http://localhost:8080/todos.html#">Productos</a></li>
+      <li><a href="http://localhost:8080/todos.html">Productos</a></li>
       <hr>
-      <li><a href="#">Inventario</a></li>
+      <li><a href="http://localhost:8080/inventario.html">Inventario</a></li>
       <hr>
-      <li><a href="#">Ventas</a></li>
+      <li><a href="http://localhost:8080/historialventas.html">Historial</a></li>
       <hr>
       <li><a href="#">Clientes</a></li>
       <hr>
-      <li class=><a href="file:///C:/Users/semed/Desktop/delusuario/delusuario/src/main/resources/static/Login/login.html">Configuración</a></li>
+      <li><a href="#">Configuración</a></li>
       <hr>
-      <li class=><a href="http://localhost:8080/login.html">Cerrar sesión</a></li>
+      <li><a href="http://localhost:8080/login.html">Cerrar sesión</a></li>
       <hr>
     </ul>
   </div>
@@ -36,6 +36,7 @@
         <th>Producto vendido</th>
         <th>Cantidad vendida</th>
         <th>Fecha de venta</th>
+        <th>Acciones</th>
       </tr>
       </thead>
       <tbody>
@@ -60,6 +61,7 @@
           <td>${venta.nombre_producto}</td>
           <td>${venta.cantidad_venta}</td>
           <td>${venta.fecha_venta}</td>
+          <td><button class="ver" onclick="#">Ver</button></td>
         `;
               ventasTable.querySelector('tbody').appendChild(row);
             });
