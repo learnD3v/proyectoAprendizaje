@@ -32,9 +32,9 @@
     <table id="ventas-table">
       <thead>
       <tr>
-        <th>ID</th>
-        <th>Producto vendido</th>
-        <th>Cantidad vendida</th>
+        <th>Código de ventas</th>
+        <th>Productos</th>
+        <th>Costo total</th>
         <th>Fecha de venta</th>
         <th>Acciones</th>
       </tr>
@@ -47,8 +47,7 @@
 </div>
 
 <script>
-  // Realizar una solicitud a la API para obtener los datos de ventas
-  fetch('historial/venta')
+  fetch('/historiales-venta/resumen-ventas')
           .then(response => response.json())
           .then(data => {
             const ventasTable = document.getElementById('ventas-table');
@@ -57,16 +56,17 @@
             data.forEach(venta => {
               const row = document.createElement('tr');
               row.innerHTML = `
-          <td>${venta.id_venta}</td>
-          <td>${venta.nombre_producto}</td>
-          <td>${venta.cantidad_venta}</td>
-          <td>${venta.fecha_venta}</td>
-          <td><button class="ver" onclick="#">Ver</button></td>
-        `;
+        <td>${venta[0]}</td>
+        <td>${venta[1]}</td>
+        <td>${venta[2]}</td>
+        <td>${venta[3]}</td>
+        <td><button class="ver" onclick="#">Ver</button></td>
+      `;
               ventasTable.querySelector('tbody').appendChild(row);
             });
           })
           .catch(error => console.log(error));
+
 </script>
 </body>
 </html>

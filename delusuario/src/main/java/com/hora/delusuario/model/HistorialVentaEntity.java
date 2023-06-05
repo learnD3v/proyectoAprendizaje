@@ -8,6 +8,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name = "historial_venta")
 @Getter
@@ -16,24 +18,40 @@ public class HistorialVentaEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_venta;
+    private Integer id_venta;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_producto")
-    @JsonIgnore
-    private ProductEntity producto;
-
-    @Column(name = "cantidad_venta")
-    private int cantidad_venta;
+    @OneToMany(mappedBy = "historialVenta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalleVentaEntity> detallesVenta = new ArrayList<>();
 
     @Column(name = "fecha_venta")
     @Convert(converter = TimestampToLocalTime.class)
     private LocalDateTime fecha_venta;
 
-    // Constructor, getters y setters, etc.
 
-    @JsonProperty("nombre_producto")
-    public String getNombreProducto() {
-        return producto != null ? producto.getNombre_producto() : null;
+    // Constructor, getters y setters, etc.
+    public Integer getId_venta() {
+        return id_venta;
+    }
+
+    public void setId_venta(Integer id_venta) {
+        this.id_venta = id_venta;
+    }
+
+    // Getter y Setter de detallesVenta
+    public List<DetalleVentaEntity> getDetallesVenta() {
+        return detallesVenta;
+    }
+
+    public void setDetallesVenta(List<DetalleVentaEntity> detallesVenta) {
+        this.detallesVenta = detallesVenta;
+    }
+
+    // Getter y Setter de fecha_venta
+    public LocalDateTime getFecha_venta() {
+        return fecha_venta;
+    }
+
+    public void setFecha_venta(LocalDateTime fecha_venta) {
+        this.fecha_venta = fecha_venta;
     }
 }
