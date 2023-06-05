@@ -2,44 +2,84 @@ package com.hora.delusuario.controller;
 
 import com.hora.delusuario.model.HistorialVentaEntity;
 import com.hora.delusuario.model.ProductEntity;
+import com.hora.delusuario.model.convertidoresfecha.VentaItem;
+import com.hora.delusuario.service.DetalleVentaService;
 import com.hora.delusuario.service.HistorialVentaService;
 import com.hora.delusuario.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/historial")
+@RequestMapping("/historiales-venta")
 public class HistorialVentaController {
 
     private final HistorialVentaService historialVentaService;
-    private final ProductService productService;
+    private final DetalleVentaService detalleVentaService;
 
-    public HistorialVentaController(HistorialVentaService historialVentaService, ProductService productService) {
+    public HistorialVentaController(HistorialVentaService historialVentaService, DetalleVentaService detalleVentaService) {
         this.historialVentaService = historialVentaService;
-        this.productService = productService;
+        this.detalleVentaService = detalleVentaService;
     }
-
-    @GetMapping("/venta")
-    public List<HistorialVentaDTO> obtenerTodosLosHistorialesVenta() {
-        List<HistorialVentaEntity> historialesVenta = historialVentaService.obtenerTodosLosHistorialesVenta();
-        List<HistorialVentaDTO> historialesVentaDTO = new ArrayList<>();
-
-        for (HistorialVentaEntity historialVenta : historialesVenta) {
-            HistorialVentaDTO historialVentaDTO = new HistorialVentaDTO(
-                    historialVenta.getId_venta(),
-                    historialVenta.getNombreProducto(),
-                    historialVenta.getCantidad_venta(),
-                    historialVenta.getFecha_venta()
-            );
-            historialesVentaDTO.add(historialVentaDTO);
+    @GetMapping()
+    public ResponseEntity<HistorialVentaEntity> obtenerHistorialVentaPorId(@PathVariable Integer id) {
+        try {
+            HistorialVentaEntity historialVenta = historialVentaService.obtenerHistorialVentaPorId(id);
+            return ResponseEntity.ok(historialVenta);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
         }
-
-        return historialesVentaDTO;
     }
+
+    @PostMapping
+    public ResponseEntity<HistorialVentaEntity> crearHistorialVenta(@RequestBody HistorialVentaEntity historialVenta) {
+        try {
+            HistorialVentaEntity nuevoHistorialVenta = historialVentaService.crearHistorialVenta(historialVenta);
+            return ResponseEntity.status(HttpStatus.CREATED).body(nuevoHistorialVenta);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping()
+    public ResponseEntity<HistorialVentaEntity> actualizarHistorialVenta(
+            @PathVariable Integer id,
+            @RequestBody HistorialVentaEntity historialVentaActualizado
+    ) {
+        try {
+            HistorialVentaEntity historialVenta = historialVentaService.actualizarHistorialVenta(id, historialVentaActualizado);
+            return ResponseEntity.ok(historialVenta);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<Void> eliminarHistorialVenta(@PathVariable Integer id) {
+        try {
+            historialVentaService.eliminarHistorialVenta(id);
+            return ResponseEntity.noContent().build();
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // Endpoint para obtener el resumen de ventas
+    @GetMapping("/resumen-ventas")
+    public List<Object[]> obtenerResumenVentas() {
+        return detalleVentaService.obtenerResumenVentas();
+    }
+
+    // Endpoint para vender productos
+    @PostMapping("/vender-productos")
+    public void venderProductos(@RequestBody List<VentaItem> ventaItems) {
+        detalleVentaService.venderProductos(ventaItems);
+    }
+
+    // Otros métodos del controlador según tus necesidades
 }

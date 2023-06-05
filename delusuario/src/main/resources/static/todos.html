@@ -75,18 +75,18 @@
           .then(response => response.json())
           .then(productos => {
             // Ordenar los productos por ID ascendente
-            productos.sort((a, b) => a.id_producto - b.id_producto);
+            productos.sort((a, b) => a.idProducto - b.idProducto);
 
             const tbody = document.getElementById('product-table-body');
             productos.forEach(producto => {
               const row = document.createElement('tr');
               row.innerHTML = `
-            <td>${producto.id_producto}</td>
-            <td>${producto.nombre_producto}</td>
-            <td>${producto.precio_producto}</td>
-            <td><input type="number" id="cantidad-${producto.id_producto}" min="0" value="0"></td>
-            <td><button class="sell-button" onclick="agregarVenta(${producto.id_producto})">Agregar a la venta</button></td>
-          `;
+          <td>${producto.idProducto}</td>
+          <td>${producto.nombre_producto}</td>
+          <td>${producto.precio_producto}</td>
+          <td><input type="number" id="cantidad-${producto.idProducto}" min="0" value="0"></td>
+          <td><button class="sell-button" onclick="agregarVenta(${producto.idProducto})">Agregar a la venta</button></td>
+        `;
               tbody.appendChild(row);
             });
           })
@@ -96,7 +96,7 @@
 
   function agregarVenta(idProducto) {
     const cantidad = document.getElementById(`cantidad-${idProducto}`).value;
-    ventaItems.push({ id_producto: { id_producto: idProducto }, cantidad_venta: parseInt(cantidad) });
+    ventaItems.push({ id_producto: idProducto, cantidad_venta: parseInt(cantidad) });
   }
 
   function venderProductos() {

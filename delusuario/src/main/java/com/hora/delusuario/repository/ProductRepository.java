@@ -6,9 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
-    Optional<ProductEntity> findById(int id_producto);
-    void deleteById(int id_producto);
+    Optional<ProductEntity> findByIdProducto(Integer idProducto);
+    void deleteByIdProducto(Integer idProducto);
 
     ProductEntity save(ProductEntity product);
 }
+
+
+
+
+
+
 

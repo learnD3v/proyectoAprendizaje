@@ -30,6 +30,5 @@ public class VentaItem {
 
 
 
-
     //private ProductEntity id_producto;
 
