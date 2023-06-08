@@ -5,6 +5,11 @@ import javax.persistence.Converter;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import javax.persistence.AttributeConverter;
+import javax.persistence.Converter;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 @Converter(autoApply = true)
 public class TimestampToLocalTime implements AttributeConverter<LocalDateTime, Timestamp> {
 
@@ -18,3 +23,4 @@ public class TimestampToLocalTime implements AttributeConverter<LocalDateTime, T
         return (dbData == null ? null : dbData.toLocalDateTime());
     }
 }
+

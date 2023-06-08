@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 
 @RestController
-@RequestMapping("/api") // Especifica la ruta base ("/api")
+@RequestMapping("/api")
 public class UserController {
     private final UserService userService;
 
@@ -22,9 +22,15 @@ public class UserController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<UserEntity> crearUsuario(@RequestBody UserEntity usuario) {
-        usuario.setFechaRegi(LocalDateTime.now()); // Establecer la fecha y hora actual
-        UserEntity nuevoUsuario = userService.crearUsuario(usuario);
-        return ResponseEntity.ok(nuevoUsuario);
+    public ResponseEntity<UserEntity> crearUsuario(@RequestBody UserEntity userEntity) {
+        userEntity.setFechaRegistro(LocalDateTime.now());
+
+        try {
+            UserEntity nuevoUsuario = userService.crearUsuario(userEntity);
+            return ResponseEntity.ok(nuevoUsuario);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 }
+

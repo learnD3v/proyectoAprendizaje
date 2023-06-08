@@ -71,15 +71,23 @@ public class ProductController {
     }
 
     // Otros métodos del controlador según tus necesidades
-    @PutMapping("/{id}/cantidad")
-    public ResponseEntity<String> modificarCantidadProducto(@PathVariable Integer id, @RequestParam Integer cantidad) {
+    @PutMapping("/cantidad")
+    public ResponseEntity<String> modificarCantidadProducto(@RequestBody Map<String, Integer> request) {
+        Integer idProducto = request.get("idProducto");
+        Integer cantidad = request.get("cantidad");
+
+        if (idProducto == null || cantidad == null) {
+            return ResponseEntity.badRequest().body("Debe proporcionar el ID del producto y la nueva cantidad");
+        }
+
         try {
-            ProductEntity updatedProduct = productService.modificarCantidadProducto(id, cantidad);
+            ProductEntity updatedProduct = productService.modificarCantidadProducto(idProducto, cantidad);
             return ResponseEntity.ok("Cantidad modificada correctamente. Nueva cantidad: " + updatedProduct.getCantidad());
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
 
     @PostMapping("/vender")
     public ResponseEntity<?> venderProductos(@RequestBody List<Map<String, Object>> ventaItems) {
