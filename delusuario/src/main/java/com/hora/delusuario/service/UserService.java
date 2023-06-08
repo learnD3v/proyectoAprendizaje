@@ -4,17 +4,19 @@ import com.hora.delusuario.model.UserEntity;
 import com.hora.delusuario.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserService {
-
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, BCryptPasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
@@ -30,7 +32,7 @@ public class UserService {
                 throw new IllegalArgumentException("La contraseña no cumple con los requisitos de validación");
             }
 
-            String contrasenhaEncriptada = BCrypt.hashpw(contrasenha, BCrypt.gensalt());
+            String contrasenhaEncriptada = passwordEncoder.encode(contrasenha);
             userEntity.setContrasenha(contrasenhaEncriptada);
         }
 
@@ -88,6 +90,7 @@ public class UserService {
         // Verificar que se cumplan todas las condiciones requeridas
         return contieneMayuscula && contieneMinuscula && contieneNumero && contieneCaracterEspecial;
     }
+
     private boolean contieneCaracteresRepetidos(String contrasenha) {
         int longitud = contrasenha.length();
         int maxCaracteresRepetidosConsecutivos = 2;

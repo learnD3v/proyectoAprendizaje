@@ -21,7 +21,7 @@ public class RolesService {
         return rolesRepository.findAll();
     }
 
-    public RolesEntity getRoleById(Integer id) {
+    public RolesEntity getRoleById(Long id) {
         Optional<RolesEntity> optionalRole = rolesRepository.findById(id);
         return optionalRole.orElse(null);
     }
@@ -31,14 +31,14 @@ public class RolesService {
     }
 
     public RolesEntity updateRole(RolesEntity role) {
-        if (role.getId_rol() == null) {
+        if (role.getIdRol() == null) {
             throw new IllegalArgumentException("ID del rol no puede ser nulo");
         }
         return rolesRepository.save(role);
     }
 
     public void deleteRole(Integer id) {
-        rolesRepository.deleteById(id);
+        rolesRepository.deleteById(id.longValue());
     }
 }
 

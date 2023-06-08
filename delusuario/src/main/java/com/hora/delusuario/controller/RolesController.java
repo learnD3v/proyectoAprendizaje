@@ -26,7 +26,7 @@ public class RolesController {
 
     @GetMapping("/{id}")
     public ResponseEntity<RolesEntity> getRoleById(@PathVariable Integer id) {
-        RolesEntity role = rolesService.getRoleById(id);
+        RolesEntity role = rolesService.getRoleById(id.longValue());
         if (role != null) {
             return ResponseEntity.ok(role);
         } else {
@@ -42,7 +42,7 @@ public class RolesController {
 
     @PutMapping("/{id}")
     public ResponseEntity<RolesEntity> updateRole(@PathVariable Integer id, @RequestBody RolesEntity role) {
-        if (!id.equals(role.getId_rol())) {
+        if (!id.equals(role.getIdRol())) {
             return ResponseEntity.badRequest().build();
         }
 
