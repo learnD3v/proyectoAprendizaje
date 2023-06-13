@@ -21,5 +21,4 @@ public interface DetalleVentaRepository extends JpaRepository<DetalleVentaEntity
             "GROUP BY hv.id_venta, hv.fecha_venta", nativeQuery = true)
     List<Object[]> obtenerResumenVentas();
 
-
 }

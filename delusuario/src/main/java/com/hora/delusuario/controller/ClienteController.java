@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import com.hora.delusuario.repository.HistorialInicioRepository;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,10 +14,12 @@ import java.util.Optional;
 @RequestMapping("/clientes")
 public class ClienteController {
     private final ClienteService clienteService;
+    private final HistorialInicioRepository historialInicioRepository;
 
     @Autowired
-    public ClienteController(ClienteService clienteService) {
+    public ClienteController(ClienteService clienteService, HistorialInicioRepository historialInicioRepository) {
         this.clienteService = clienteService;
+        this.historialInicioRepository = historialInicioRepository;
     }
 
     @PostMapping("/crear")
@@ -43,5 +45,11 @@ public class ClienteController {
     public ResponseEntity<Void> eliminarClientePorId(@PathVariable("id") Long idCliente) {
         clienteService.eliminarClientePorId(idCliente);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/historial-inicio")
+    public ResponseEntity<List<HistorialInicioDTO>> obtenerHistorialInicioOrdenado() {
+        List<HistorialInicioDTO> historialInicio = historialInicioRepository.obtenerHistorialInicioOrdenado();
+        return new ResponseEntity<>(historialInicio, HttpStatus.OK);
     }
 }
