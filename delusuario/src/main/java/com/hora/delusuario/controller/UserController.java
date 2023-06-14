@@ -4,12 +4,10 @@ import com.hora.delusuario.model.UserEntity;
 import com.hora.delusuario.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -32,5 +30,14 @@ public class UserController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    @GetMapping("/{correo}")
+    public UserEntity getUserByCorreo(@PathVariable String correo) {
+        return userService.findByCorreo(correo);
+    }
+    @GetMapping("/usuarios")
+    public List<UserEntity> getAllUsers() {
+        return userService.getAllUsers();
+    }
 }
+
 

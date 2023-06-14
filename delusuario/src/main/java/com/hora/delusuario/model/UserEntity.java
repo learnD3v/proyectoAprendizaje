@@ -3,6 +3,7 @@ package com.hora.delusuario.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hora.delusuario.model.convertidoresfecha.TimestampToLocalTime;
 import lombok.Getter;
 import lombok.Setter;
@@ -37,6 +38,7 @@ public class UserEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_rol")
+    @JsonIgnore
     private RolesEntity rol;
 
     // Resto de los atributos y métodos de la entidad

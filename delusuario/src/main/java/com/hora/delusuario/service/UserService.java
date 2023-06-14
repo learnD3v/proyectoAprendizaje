@@ -8,6 +8,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserService {
     private final UserRepository userRepository;
@@ -112,5 +114,11 @@ public class UserService {
         }
 
         return false;
+    }
+    public UserEntity findByCorreo(String correo) {
+        return userRepository.findByCorreo(correo);
+    }
+    public List<UserEntity> getAllUsers() {
+        return userRepository.findAll();
     }
 }
