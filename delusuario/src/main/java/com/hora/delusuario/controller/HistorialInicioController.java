@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@CrossOrigin("http://localhost:4200/")
 @RestController
-@RequestMapping("/api/historial-inicio")
+@RequestMapping("/historial-inicio")
 public class HistorialInicioController {
 
     private final HistorialInicioService historialInicioService;
@@ -17,26 +17,9 @@ public class HistorialInicioController {
         this.historialInicioService = historialInicioService;
     }
 
-    @PostMapping
-    public ResponseEntity<?> guardarHistorialInicio(@RequestBody HistorialInicioEntity historialInicio) {
-        historialInicioService.guardarHistorialInicio(historialInicio);
-        return ResponseEntity.ok("Historial de inicio guardado exitosamente");
+    @GetMapping("/ordenado")
+    public List<Object[]> obtenerHistorialInicioOrdenado() {
+        return historialInicioService.obtenerHistorialInicioOrdenado();
     }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<HistorialInicioEntity> obtenerHistorialInicioPorId(@PathVariable Long id) {
-        HistorialInicioEntity historialInicio = historialInicioService.obtenerHistorialInicioPorId(id);
-        return ResponseEntity.ok(historialInicio);
-    }
-
-    @GetMapping("/ver")
-    public ResponseEntity<List<HistorialInicioEntity>> obtenerTodosLosHistorialesInicio() {
-        List<HistorialInicioEntity> historialesInicio = historialInicioService.obtenerTodosLosHistorialesInicio();
-        return ResponseEntity.ok(historialesInicio);
-    }
-
-    // Otros métodos según tus necesidades
-
-    // ...
 
 }

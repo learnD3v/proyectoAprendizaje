@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.hora.delusuario.repository.HistorialInicioRepository;
 import java.util.List;
 import java.util.Optional;
-
+@CrossOrigin("http://localhost:4200/")
 @RestController
 @RequestMapping("/clientes")
 public class ClienteController {
@@ -46,10 +46,4 @@ public class ClienteController {
         clienteService.eliminarClientePorId(idCliente);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
-    @GetMapping("/historial-inicio")
-    public ResponseEntity<List<HistorialInicioDTO>> obtenerHistorialInicioOrdenado() {
-        List<HistorialInicioDTO> historialInicio = historialInicioRepository.obtenerHistorialInicioOrdenado();
-        return new ResponseEntity<>(historialInicio, HttpStatus.OK);
     }
-}

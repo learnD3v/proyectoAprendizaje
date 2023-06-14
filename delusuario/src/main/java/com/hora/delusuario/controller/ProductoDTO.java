@@ -2,11 +2,12 @@ package com.hora.delusuario.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hora.delusuario.model.ProductEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.NoSuchElementException;
-
+@CrossOrigin("http://localhost:4200/")
 public class ProductoDTO {
     @JsonProperty("idProducto")
     private Integer idProducto;

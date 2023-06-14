@@ -39,9 +39,9 @@ public class AuthServiceImpl implements AuthService {
 
             // Crear instancia de HistorialInicioEntity
             HistorialInicioEntity historialInicio = new HistorialInicioEntity();
-            historialInicio.setUsuario(user);
+            historialInicio.setId_usuario(user);
             historialInicio.setToken(token);
-            historialInicio.setFechaInicio(LocalDateTime.now());
+            historialInicio.setFecha_inicio(LocalDateTime.now());
 
             // Guardar el historial de inicio de sesión en la base de datos
             historialInicioService.guardarHistorialInicio(historialInicio);

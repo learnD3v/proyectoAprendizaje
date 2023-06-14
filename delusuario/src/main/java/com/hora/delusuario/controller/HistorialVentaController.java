@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
-
+@CrossOrigin("http://localhost:4200/")
 @RestController
 @RequestMapping("/historiales-venta")
 public class HistorialVentaController {

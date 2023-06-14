@@ -1,5 +1,6 @@
 package com.hora.delusuario.service;
 
+import com.hora.delusuario.controller.HistorialInicioDTO;
 import com.hora.delusuario.model.HistorialInicioEntity;
 import com.hora.delusuario.model.UserEntity;
 import com.hora.delusuario.repository.HistorialInicioRepository;
@@ -12,6 +13,7 @@ import java.util.NoSuchElementException;
 
 @Service
 public class HistorialInicioService {
+
     private final HistorialInicioRepository historialInicioRepository;
 
     public HistorialInicioService(HistorialInicioRepository historialInicioRepository) {
@@ -22,15 +24,10 @@ public class HistorialInicioService {
         historialInicioRepository.save(historialInicio);
     }
 
-    public HistorialInicioEntity obtenerHistorialInicioPorId(Long id) {
-        return historialInicioRepository.findById(id)
-                .orElseThrow(() -> new NoSuchElementException("Historial de inicio no encontrado"));
+    public List<Object[]> obtenerHistorialInicioOrdenado() {
+        return historialInicioRepository.obtenerHistorialInicioOrdenado();
     }
-
-    public List<HistorialInicioEntity> obtenerTodosLosHistorialesInicio() {
-        return historialInicioRepository.findAll();
-    }
-
-    // Otros métodos según tus necesidades
 }
+
+
 
