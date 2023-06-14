@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
+@CrossOrigin("http://localhost:4200/")
 @RestController
 @RequestMapping("/api")
 public class UserController {

@@ -1,36 +1,35 @@
 package com.hora.delusuario.controller;
 
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+@CrossOrigin("http://localhost:4200/")
 public class HistorialInicioDTO {
     private Long idSesion;
-    private Long idUsuario;
     private String correo;
-    private String nombreCompleto;
-    private LocalDateTime fechaInicio;
+    private LocalDate fechaInicio;
 
-    public HistorialInicioDTO(Long idSesion, Long idUsuario, String correo, String nombreCompleto, LocalDateTime fechaInicio) {
+    // Constructor, getters y setters
+
+    // Constructor vacío
+    public HistorialInicioDTO() {
+    }
+
+    // Constructor con parámetros
+    public HistorialInicioDTO(Long idSesion, String correo, LocalDate fechaInicio) {
         this.idSesion = idSesion;
-        this.idUsuario = idUsuario;
         this.correo = correo;
-        this.nombreCompleto = nombreCompleto;
         this.fechaInicio = fechaInicio;
     }
 
+    // Getters y setters
     public Long getIdSesion() {
         return idSesion;
     }
 
     public void setIdSesion(Long idSesion) {
         this.idSesion = idSesion;
-    }
-
-    public Long getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(Long idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public String getCorreo() {
@@ -41,19 +40,11 @@ public class HistorialInicioDTO {
         this.correo = correo;
     }
 
-    public String getNombreCompleto() {
-        return nombreCompleto;
-    }
-
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
-    }
-
-    public LocalDateTime getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
 
-    public void setFechaInicio(LocalDateTime fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 }

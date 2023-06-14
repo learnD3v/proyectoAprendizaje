@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import org.springframework.web.bind.annotation.PathVariable;
-
+@CrossOrigin("http://localhost:4200/")
 @RestController
 @RequestMapping("/productos")
 public class ProductController {

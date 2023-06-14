@@ -1,7 +1,9 @@
 package com.hora.delusuario.controller;
 
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
+import java.time.LocalDateTime;
+@CrossOrigin("http://localhost:4200/")
 public class HistorialVentaDTO {
     private Long id_venta;
     private String nombre_producto;

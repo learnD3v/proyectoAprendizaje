@@ -9,10 +9,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface HistorialInicioRepository extends JpaRepository<HistorialInicioEntity, Long> {
-    @Query("SELECT hi.idSesion, u.idUsuario, u.correo, u.nombre, hi.fechaInicio " +
-            "FROM HistorialInicioEntity hi " +
-            "JOIN hi.usuario u " +
-            "ORDER BY hi.fechaInicio DESC")
-    List<HistorialInicioDTO> obtenerHistorialInicioOrdenado();
+    @Query("SELECT hi.id_sesion, u.correo, hi.fecha_inicio "
+            + "FROM HistorialInicioEntity hi "
+            + "JOIN hi.id_usuario u "
+            + "ORDER BY hi.fecha_inicio DESC")
+    List<Object[]> obtenerHistorialInicioOrdenado();
 }
-
