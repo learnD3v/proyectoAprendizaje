@@ -1,5 +1,5 @@
 package com.hora.delusuario.controller;
-
+/*
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hora.delusuario.model.ProductEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,6 +21,8 @@ public class ProductoDTO {
     @JsonProperty("precio_producto")
     private Double precio_producto;
 
+
+
     public ProductoDTO(Integer idProducto, String nombre_producto, Integer cantidad, Double precio_producto) {
         this.idProducto = idProducto;
         this.nombre_producto = nombre_producto;
@@ -30,5 +32,5 @@ public class ProductoDTO {
 
     // Getters y setters
 }
-
+*/
 

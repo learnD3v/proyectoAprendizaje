@@ -1,13 +1,11 @@
 package com.hora.delusuario.service;
-
-import com.hora.delusuario.model.DetalleVentaEntity;
-import com.hora.delusuario.model.HistorialVentaEntity;
-import com.hora.delusuario.model.ProductEntity;
+/*
+import com.hora.delusuario.model.*;
 import com.hora.delusuario.model.convertidoresfecha.VentaItem;
-import com.hora.delusuario.repository.DetalleVentaRepository;
-import com.hora.delusuario.repository.HistorialVentaRepository;
-import com.hora.delusuario.repository.ProductRepository;
+import com.hora.delusuario.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -20,10 +18,15 @@ public class ProductService {
 
     private final ProductRepository productRepository;
     private final HistorialVentaRepository historialVentaRepository;
+    private final HistorialProductoRepository historialProductoRepository;
+    private final DetalleCargaRepository detalleCargaRepository;
 
-    public ProductService(ProductRepository productRepository, HistorialVentaRepository historialVentaRepository) {
+    public ProductService(ProductRepository productRepository, HistorialVentaRepository historialVentaRepository,
+                          HistorialProductoRepository historialProductoRepository, DetalleCargaRepository detalleCargaRepository) {
         this.productRepository = productRepository;
         this.historialVentaRepository = historialVentaRepository;
+        this.historialProductoRepository = historialProductoRepository;
+        this.detalleCargaRepository = detalleCargaRepository;
     }
 
     public List<ProductEntity> obtenerTodosLosProductos() {
@@ -63,8 +66,34 @@ public class ProductService {
         Integer nuevaCantidad = product.getCantidad() + cantidad;
         product.setCantidad(nuevaCantidad);
 
+        // Obtener el usuario actual
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserEntity usuarioActual = (UserEntity) authentication.getPrincipal();
+
+        // Llamar al servicio para modificar la cantidad del producto
+        ProductEntity productoModificado = modificarCantidadProducto(idProducto, cantidad);
+
+
+        // Crear el historial de productos
+        HistorialProductoEntity historialProducto = new HistorialProductoEntity();
+        historialProducto.setIdUsuario(usuarioActual);
+        historialProducto.setFechaCarga(LocalDateTime.now());
+
+        // Guardar el historial de productos
+        historialProductoRepository.save(historialProducto);
+
+        // Crear el detalle de carga
+        DetalleCargaEntity detalleCarga = new DetalleCargaEntity();
+        detalleCarga.setHistorialProducto(historialProducto);
+        detalleCarga.setCantidad_carga(cantidad);
+        detalleCarga.setProducto(product);
+
+        // Guardar el detalle de carga
+        detalleCargaRepository.save(detalleCarga);
+
         return productRepository.save(product);
     }
+
 
     @Autowired
     private DetalleVentaRepository detalleVentaRepository;
@@ -102,7 +131,7 @@ public class ProductService {
         historialVentaRepository.save(historialVenta);
     }
 }
-
+*/
 
 
 

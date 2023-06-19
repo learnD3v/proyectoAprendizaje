@@ -1,5 +1,5 @@
 package com.hora.delusuario.service;
-
+/*
 import com.hora.delusuario.model.DetalleVentaEntity;
 import com.hora.delusuario.model.HistorialVentaEntity;
 import com.hora.delusuario.model.ProductEntity;
@@ -74,6 +74,6 @@ public class DetalleVentaService {
 
     // Otros métodos del servicio según tus necesidades
 }
-
+*/
 
 

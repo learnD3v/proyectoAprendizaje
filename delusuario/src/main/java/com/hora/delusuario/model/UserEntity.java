@@ -18,7 +18,7 @@ public class UserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
-    private Integer idUsuario;
+    private Integer id_usuario;
 
     @Column(name = "nombre_completo")
     @NotNull
@@ -41,6 +41,13 @@ public class UserEntity {
     @JsonIgnore
     private RolesEntity rol;
 
+    @Column(name = "token_reset")
+    private String tokenReset;
+
+    // Constructor, getters, and setters
+
+
+
     // Resto de los atributos y métodos de la entidad
 
     // Setter y getter para la relación con el rol
@@ -55,11 +62,11 @@ public class UserEntity {
     // Resto de los setters y getters para los demás atributos
 
     public Integer getIdUsuario() {
-        return idUsuario;
+        return id_usuario;
     }
 
     public void setIdUsuario(Integer idUsuario) {
-        this.idUsuario = idUsuario;
+        this.id_usuario = idUsuario;
     }
 
     public String getNombre() {
@@ -92,6 +99,13 @@ public class UserEntity {
 
     public void setFechaRegistro(LocalDateTime fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+    public String getTokenReset() {
+        return tokenReset;
+    }
+
+    public void setTokenReset(String tokenReset) {
+        this.tokenReset = tokenReset;
     }
 }
 

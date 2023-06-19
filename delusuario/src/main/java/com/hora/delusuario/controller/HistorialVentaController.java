@@ -1,5 +1,5 @@
 package com.hora.delusuario.controller;
-
+/*
 import com.hora.delusuario.model.HistorialVentaEntity;
 import com.hora.delusuario.model.ProductEntity;
 import com.hora.delusuario.model.convertidoresfecha.VentaItem;
@@ -11,9 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.*;
+/*
 @CrossOrigin("http://localhost:4200/")
 @RestController
 @RequestMapping("/historiales-venta")
@@ -71,8 +70,20 @@ public class HistorialVentaController {
 
     // Endpoint para obtener el resumen de ventas
     @GetMapping("/resumen-ventas")
-    public List<Object[]> obtenerResumenVentas() {
-        return detalleVentaService.obtenerResumenVentas();
+    public List<LinkedHashMap<String, Object>> obtenerResumenVentas() {
+        List<Object[]> resultados = detalleVentaService.obtenerResumenVentas();
+
+        List<LinkedHashMap<String, Object>> resumenVentas = new ArrayList<>();
+        for (Object[] fila : resultados) {
+            LinkedHashMap<String, Object> resumenVenta = new LinkedHashMap<>();
+            resumenVenta.put("Codigo", fila[0]);
+            resumenVenta.put("Productos", fila[1]);
+            resumenVenta.put("Costo", fila[2]);
+            resumenVenta.put("Fecha", fila[3]);
+            resumenVentas.add(resumenVenta);
+        }
+
+        return resumenVentas;
     }
 
     // Endpoint para vender productos
@@ -83,3 +94,4 @@ public class HistorialVentaController {
 
     // Otros métodos del controlador según tus necesidades
 }
+*/

@@ -1,5 +1,5 @@
 package com.hora.delusuario.service;
-
+/*
 import com.hora.delusuario.model.HistorialVentaEntity;
 import com.hora.delusuario.repository.HistorialVentaRepository;
 import org.springframework.stereotype.Service;
@@ -40,3 +40,4 @@ public class HistorialVentaService {
 
     // Otros métodos del servicio según tus necesidades
 }
+*/
