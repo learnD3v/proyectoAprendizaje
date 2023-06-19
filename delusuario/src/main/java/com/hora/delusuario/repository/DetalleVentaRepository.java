@@ -1,5 +1,5 @@
 package com.hora.delusuario.repository;
-
+/*
 import com.hora.delusuario.model.DetalleVentaEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -22,3 +22,4 @@ public interface DetalleVentaRepository extends JpaRepository<DetalleVentaEntity
     List<Object[]> obtenerResumenVentas();
 
 }
+*/

@@ -1,5 +1,5 @@
 package com.hora.delusuario.model.convertidoresfecha;
-
+/*
 import com.hora.delusuario.model.ProductEntity;
 
 public class VentaItem {
@@ -31,4 +31,4 @@ public class VentaItem {
 
 
     //private ProductEntity id_producto;
-
+*/

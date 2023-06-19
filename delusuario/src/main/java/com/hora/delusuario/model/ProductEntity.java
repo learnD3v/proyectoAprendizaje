@@ -1,8 +1,9 @@
 package com.hora.delusuario.model;
-
+/*
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,9 +18,8 @@ import java.util.List;
 public class ProductEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "producto_seq")
-    @SequenceGenerator(name = "producto_seq", sequenceName = "producto_id_producto_seq", allocationSize = 1)
-    private Integer idProducto; // Cambiado de id_producto a idProducto
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id_producto;
 
     @Column(name = "nombre_producto")
     @NotNull
@@ -33,16 +33,43 @@ public class ProductEntity {
     @NotNull
     private Double precio_producto;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_proveedor")
+    private ProveedorEntity proveedor;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "categoria", referencedColumnName = "id_categoria")
+    private CategoriaEntity categoria;
+
     @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<DetalleVentaEntity> detallesVenta = new ArrayList<>();
 
+    @OneToMany(mappedBy = "producto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<DetalleCargaEntity> detallesCarga = new ArrayList<>();
 
+
+    // Constructor, getters y setters
+
+    public ProveedorEntity getProveedorEntity() {
+        return proveedor;
+    }
+
+    public void setProveedorEntity(ProveedorEntity proveedorEntity) {
+        this.proveedor = proveedorEntity;
+    }
+    public CategoriaEntity getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(CategoriaEntity categoria) {
+        this.categoria = categoria;
+    }
     public Integer getId_producto() {
-        return idProducto;
+        return id_producto;
     }
 
     public void setId_producto(Integer id_producto) {
-        this.idProducto = id_producto;
+        this.id_producto = id_producto;
     }
 
     public String getNombre_producto() {
@@ -78,8 +105,8 @@ public class ProductEntity {
     }
 
     public Integer getId() {
-        return idProducto;
+        return id_producto;
     }
+
 }
-
-
+*/
