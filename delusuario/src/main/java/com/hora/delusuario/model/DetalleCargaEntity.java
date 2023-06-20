@@ -2,7 +2,7 @@ package com.hora.delusuario.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-/*
+
 @Entity
 @Table(name = "detalle_carga")
 public class DetalleCargaEntity {
@@ -54,4 +54,3 @@ public class DetalleCargaEntity {
         this.producto = producto;
     }
 }
-*/

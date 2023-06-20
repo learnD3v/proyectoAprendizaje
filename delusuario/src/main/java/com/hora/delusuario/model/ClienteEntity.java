@@ -25,8 +25,36 @@ public class ClienteEntity {
     @NotNull
     private String numero_ruc;
 
-    // Otros atributos y métodos del modelo
+    public Long getId_cliente() {
+        return id_cliente;
+    }
 
-    // Constructor, getters y setters, etc.
+    public void setId_cliente(Long id_cliente) {
+        this.id_cliente = id_cliente;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getNumero_contacto() {
+        return numero_contacto;
+    }
+
+    public void setNumero_contacto(String numero_contacto) {
+        this.numero_contacto = numero_contacto;
+    }
+
+    public String getNumero_ruc() {
+        return numero_ruc;
+    }
+
+    public void setNumero_ruc(String numero_ruc) {
+        this.numero_ruc = numero_ruc;
+    }
 }
 

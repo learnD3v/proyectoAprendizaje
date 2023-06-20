@@ -1,5 +1,5 @@
 package com.hora.delusuario.model;
-/*
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -109,4 +109,4 @@ public class ProductEntity {
     }
 
 }
-*/
+

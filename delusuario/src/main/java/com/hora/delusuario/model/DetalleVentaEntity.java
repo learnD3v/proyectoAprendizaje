@@ -1,5 +1,4 @@
 package com.hora.delusuario.model;
-/*
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.Setter;
@@ -69,4 +68,3 @@ public class DetalleVentaEntity {
         this.cantidad_venta = cantidad_venta;
     }
 }
-*/
