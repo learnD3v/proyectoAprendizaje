@@ -1,5 +1,4 @@
 package com.hora.delusuario.model;
-/*
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hora.delusuario.model.convertidoresfecha.TimestampToLocalTime;
@@ -54,4 +53,4 @@ public class HistorialVentaEntity {
     public void setFecha_venta(LocalDateTime fecha_venta) {
         this.fecha_venta = fecha_venta;
     }
-}*/
+}

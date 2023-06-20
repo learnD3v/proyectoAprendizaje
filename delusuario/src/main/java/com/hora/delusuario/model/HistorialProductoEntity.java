@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-/*
+
 @Entity
 @Table(name = "historial_productos")
 public class HistorialProductoEntity {
@@ -56,4 +56,3 @@ public class HistorialProductoEntity {
         this.fecha_carga = fecha_carga;
     }
 }
-*/
