@@ -1,4 +1,4 @@
-package com.hora.delusuario.model.convertidoresfecha;
+package com.hora.delusuario.model;
 /*
 import com.hora.delusuario.model.ProductEntity;
 

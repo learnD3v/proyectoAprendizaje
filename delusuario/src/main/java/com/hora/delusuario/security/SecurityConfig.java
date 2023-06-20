@@ -38,7 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/api/reset/**").permitAll()
+                .antMatchers("/api/**").permitAll()
                 .antMatchers("/login/**").permitAll()
                 .antMatchers("/api/register").permitAll() // Permitir acceso público a la ruta de registro
                 .anyRequest().authenticated()

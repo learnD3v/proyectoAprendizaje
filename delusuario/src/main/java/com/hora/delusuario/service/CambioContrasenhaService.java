@@ -39,10 +39,15 @@ public class CambioContrasenhaService {
         return tokenReset;
     }
 
-    public void cambiarContrasenhaConTokenReset(String tokenReset, String nuevaContrasenha) {
+    public void cambiarContrasenhaConTokenReset(String tokenReset, String nuevaContrasenha, String confirmarContrasenha) {
         UserEntity user = userRepository.findByTokenReset(tokenReset);
         if (user == null) {
             throw new IllegalArgumentException("Token de reinicio de contraseña no válido");
+        }
+
+        // Verificar si la nueva contraseña y su confirmación coinciden
+        if (!nuevaContrasenha.equals(confirmarContrasenha)) {
+            throw new IllegalArgumentException("Las contraseñas no coinciden");
         }
 
         // Encriptar la nueva contraseña

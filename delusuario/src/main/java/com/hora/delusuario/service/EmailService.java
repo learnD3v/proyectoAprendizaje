@@ -36,7 +36,7 @@ public class EmailService {
             message.setSubject("Restablecimiento de contraseña");
 
             // Construir el enlace de recuperación de contraseña
-            String resetLink = "http://localhost:8080/api/reset/change?token=" + tokenReset;
+            String resetLink = "http://localhost:8080/api/reset/change/" + tokenReset;
 
             // Establecer el contenido del correo con el enlace de recuperación de contraseña
             message.setText("Haga clic en el siguiente enlace para restablecer su contraseña: " + resetLink);
