@@ -1,4 +1,4 @@
-package com.hora.delusuario.security;
+package com.hora.delusuario.model;
 
 public class AuthenticationRequest {
     private String correo;
@@ -7,9 +7,9 @@ public class AuthenticationRequest {
     public AuthenticationRequest() {
     }
 
-    public AuthenticationRequest(String username, String password) {
-        this.correo = username;
-        this.contrasenha = password;
+    public AuthenticationRequest(String correo, String contrasenha) {
+        this.correo = correo;
+        this.contrasenha = contrasenha;
     }
 
     public String getCorreo() {

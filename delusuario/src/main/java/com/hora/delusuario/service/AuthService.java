@@ -1,9 +1,11 @@
 package com.hora.delusuario.service;
 
+import com.hora.delusuario.model.AuthenticationRequest;
+import com.hora.delusuario.model.AuthenticationResponse;
 import com.hora.delusuario.model.UserEntity;
 
 public interface AuthService {
-    String authenticateAndGenerateToken(String correo, String contrasenha);
+    AuthenticationResponse authenticateAndGenerateToken(AuthenticationRequest request);
 
     UserEntity getUserByCorreo(String correo);
 
